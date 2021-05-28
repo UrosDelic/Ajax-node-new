@@ -4,9 +4,26 @@ const host = "localhost";
 const port = 3000;
 
 const server = http.createServer((request, response) => {
-  response.setHeader("Access-Control-Allow-Origin", "*");
-  response.writeHead(200);
+  response.writeHead(200, { "content-type": "text/html" });
   fs.createReadStream("index.html").pipe(response);
+
+  if (request.method === "POST") {
+    let data = [];
+    request
+      .on("data", chunk => {
+        data.push(chunk);
+      })
+      .on("end", () => {
+        data = Buffer.concat(data).toString();
+        fs.writeFile("message.json", data, () => {});
+      });
+    // response.end();
+  } else if (request.method === "GET") {
+    let message = fs.readFileSync("message.json", () => {});
+    message = Buffer.from(message);
+    response.write(message);
+    //response.end();
+  }
 });
 
 server.listen(port, host, error => {

@@ -8,6 +8,46 @@
 </head>
 <body>
     <h1>Index.html page</h1>
-<script src="Frontend.js"></script>
+    <button id="get-request-button">GET REQUEST</button>
+    <button id="post-request-button">POST REQUEST</button>
+
+    
+<script>
+  const obj = {
+        ime: "ime",
+        prezime: "prezime",
+        godine: 15,
+        };
+
+    const JSONobj = JSON.stringify(obj);
+    
+    const sendHttpRequest = (method, url, data) =>{
+       const promise = new Promise((resolve, reject) =>{
+           
+       })
+        const http = new XMLHttpRequest();
+        http.open(method, url, data);
+        http.send(data);
+    }
+
+
+
+    const getHttpRequest = () => {
+        sendHttpRequest('GET', 'http://localhost:3000/');   
+    }
+
+    const postHttpRequest = () => {
+        sendHttpRequest('POST', 'http://localhost:3000/', JSONobj)
+
+    }
+
+
+const postRequestButton = document.getElementById('post-request-button');
+postRequestButton.addEventListener('click', postHttpRequest);
+
+const getRequestButton = document.getElementById('get-request-button');
+getRequestButton.addEventListener('click', getHttpRequest);
+
+</script>
 </body>
 </html>
