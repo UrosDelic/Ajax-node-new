@@ -16,6 +16,8 @@ const server = http.createServer((request, response) => {
   });
 
   if (request.method === "POST") {
+    //response.getHeader("Content-Type", "application/json");
+
     let data = [];
     request
       .on("data", chunk => {

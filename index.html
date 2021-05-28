@@ -1,53 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ajax - Node.js</title>
-</head>
-<body>
+  </head>
+
+  <body>
     <h1>Index.html page</h1>
     <button id="get-request-button">GET REQUEST</button>
     <button id="post-request-button">POST REQUEST</button>
 
-    
-<script>
-  const obj = {
-        ime: "test2",
-        prezime: "test2",
-        godine: 2,
-        };
+    <script>
+      const obj = {
+        ime: "test7",
+        prezime: "test7",
+        godine: 7,
+      };
 
-    const JSONobj = JSON.stringify(obj);
-    
-    const sendHttpRequest = (method, url, data) =>{
-       const promise = new Promise((resolve, reject) =>{
-           
-       })
-        const http = new XMLHttpRequest();
-        http.open(method, url, data);
-        http.send(data);
-    }
+      const JSONobj = JSON.stringify(obj);
 
+      const sendHttpRequest = (method, url, data) => {
+        const promise = new Promise((resolve, reject) => {
+          const http = new XMLHttpRequest();
+          if (data != "") {
+            http.open(method, url, data);
+            http.setRequestHeader("Content-Type", "application/json");
+          } else {
+            http.open(method, url);
+          }
 
+          http.onload = () => {
+            if (this.status >= 200 && this.status < 300) {
+              resolve(http.response);
+            } else {
+              reject(http.statusText);
+            }
+          };
+          http.onerror = () => {
+            reject("REJECT message inside onerror");
+          };
+          http.send(data);
+        });
+        return promise;
+      };
 
-    const getHttpRequest = () => {
-        sendHttpRequest('GET', 'http://localhost:3000/');   
-    }
+      const getHttpRequest = () => {
+        sendHttpRequest("GET", "http://localhost:3000/", null).then(responseData => {
+          console.log(responseData);
+        });
+      };
 
-    const postHttpRequest = () => {
-        sendHttpRequest('POST', 'http://localhost:3000/', JSONobj)
+      const postHttpRequest = () => {
+        sendHttpRequest("POST", "http://localhost:3000/", JSONobj)
+          .then(responseData => {
+            console.log(responseData);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      };
 
-    }
+      const postRequestButton = document.getElementById("post-request-button");
+      postRequestButton.addEventListener("click", postHttpRequest);
 
-
-const postRequestButton = document.getElementById('post-request-button');
-postRequestButton.addEventListener('click', postHttpRequest);
-
-const getRequestButton = document.getElementById('get-request-button');
-getRequestButton.addEventListener('click', getHttpRequest);
-
-</script>
-</body>
+      const getRequestButton = document.getElementById("get-request-button");
+      getRequestButton.addEventListener("click", getHttpRequest);
+    </script>
+  </body>
 </html>
