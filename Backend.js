@@ -4,7 +4,6 @@ const host = "localhost";
 const port = 3000;
 
 const server = http.createServer((request, response) => {
-  response.setHeader("Content-type", "application-json");
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.writeHead(200);
   fs.createReadStream("index.html").pipe(response);
