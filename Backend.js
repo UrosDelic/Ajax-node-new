@@ -1,9 +1,19 @@
 const http = require("http");
 const fs = require("fs");
+const host = "localhost";
+const port = 3000;
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { "content-type": "text/html" });
-  fs.createReadStream("index.html").pipe(res);
+const server = http.createServer((request, response) => {
+  response.setHeader("Content-type", "application-json");
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.writeHead(200);
+  fs.createReadStream("index.html").pipe(response);
 });
 
-server.listen(process.env.PORT || 3000);
+server.listen(port, host, error => {
+  if (error) {
+    console.log("Something went wrong", error);
+  } else {
+    console.log(`Server is runing on http://${host}:${port}`);
+  }
+});
