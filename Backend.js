@@ -5,7 +5,15 @@ const port = 3000;
 
 const server = http.createServer((request, response) => {
   response.writeHead(200, { "content-type": "text/html" });
-  fs.createReadStream("index.html").pipe(response);
+  //fs.createReadStream("index.html").pipe(response);
+  fs.readFile("./index.html", (error, html) => {
+    if (error) {
+      throw error;
+    } else {
+      response.write(html);
+      response.end();
+    }
+  });
 
   if (request.method === "POST") {
     let data = [];
@@ -17,7 +25,7 @@ const server = http.createServer((request, response) => {
         data = Buffer.concat(data).toString();
         fs.writeFile("message.json", data, () => {});
       });
-    // response.end();
+    //response.end();
   } else if (request.method === "GET") {
     let message = fs.readFileSync("message.json", () => {});
     message = Buffer.from(message);
