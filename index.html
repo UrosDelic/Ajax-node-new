@@ -13,10 +13,10 @@
     <button id="post-request-button">POST REQUEST</button>
 
     <script>
+      // regres test
       const obj = {
-        ime: "test7",
-        prezime: "test7",
-        godine: 7,
+        email: "test backend HEADERS3",
+        password: "test backed HEADERS3",
       };
 
       const JSONobj = JSON.stringify(obj);
@@ -24,14 +24,15 @@
       const sendHttpRequest = (method, url, data) => {
         const promise = new Promise((resolve, reject) => {
           const http = new XMLHttpRequest();
-          if (data != "") {
-            http.open(method, url, data);
-            http.setRequestHeader("Content-Type", "application/json");
-          } else {
-            http.open(method, url);
-          }
+
+          http.open(method, url, data);
+          http.setRequestHeader("Content-Type", "application/json");
 
           http.onload = () => {
+            if (http.response) {
+              let jsonData = JSON.parse(http.response);
+              console.log("test onload res", jsonData);
+            }
             if (this.status >= 200 && this.status < 300) {
               resolve(http.response);
             } else {
@@ -47,17 +48,21 @@
       };
 
       const getHttpRequest = () => {
-        sendHttpRequest("GET", "http://localhost:3000/", null).then(responseData => {
-          console.log(responseData);
-        });
+        sendHttpRequest("GET", "http://localhost:8080/get-data")
+          .then((responseData) => {
+            console.log(responseData);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       };
 
       const postHttpRequest = () => {
-        sendHttpRequest("POST", "http://localhost:3000/", JSONobj)
-          .then(responseData => {
+        sendHttpRequest("POST", "http://localhost:8080", JSONobj)
+          .then((responseData) => {
             console.log(responseData);
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           });
       };
