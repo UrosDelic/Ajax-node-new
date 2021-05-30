@@ -1,6 +1,5 @@
 const http = require("http");
 const fs = require("fs");
-const { Console } = require("console");
 port = 8080;
 host = "localhost";
 
@@ -13,7 +12,7 @@ const server = http.createServer((request, response) => {
 
     }
     // GET DATA FROM AJAX
-    if (request.url === "/get-data" && request.method === "GET") {
+    else if (request.url === "/get-data" && request.method === "GET") {
         response.setHeader("content-type", "application/json");
         let message = fs.readFile("message.json", (error, file) => {
             if (error) {
@@ -26,7 +25,7 @@ const server = http.createServer((request, response) => {
         });
     }
     // POST DATA FROM AJAX
-    if (request.method === "POST" && request.url === "/") {
+    else if (request.method === "POST" && request.url === "/post-data") {
         response.setHeader("content-type", "application/json");
         let data = [];
         request
@@ -39,6 +38,11 @@ const server = http.createServer((request, response) => {
                 response.write(data);
                 response.end();
             });
+    }
+    else {
+        response.statusMessage = 'bad method';
+        response.write('{"message": "error"}');
+        response.end();
     }
 });
 
