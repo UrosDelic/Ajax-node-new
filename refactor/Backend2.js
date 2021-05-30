@@ -9,7 +9,9 @@ const server = http.createServer((request, response) => {
     // response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
 
     if (request.url === '/') {
+        response.statusCode = 200;
         response.setHeader("Access-Control-Allow-Methods", "POST, GET");
+
         fs.readFile("../index.html", (error, html) => {
             if (error) {
                 throw error;
@@ -23,15 +25,14 @@ const server = http.createServer((request, response) => {
         // response.end();
 
     } else if (request.url === '/get-data') {
-        // response.setHeader('content-type', 'application/json');
-
+        response.setHeader('content-type', 'application/json');
         let message = fs.readFileSync("message.json", () => { });
         message = Buffer.from(message);
         response.write(message);
         response.end();
     }
     if (request.method === "POST" && request.url === '/') {
-        // response.setHeader('content-type', 'application/json');
+        response.setHeader('content-type', 'application/json');
         let data = [];
         request
             .on("data", chunk => {
@@ -40,6 +41,7 @@ const server = http.createServer((request, response) => {
             .on("end", () => {
                 data = Buffer.concat(data).toString();
                 fs.writeFile("message.json", data, () => { });
+                response.write(data);
                 response.end();
             });
     }
