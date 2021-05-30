@@ -9,7 +9,7 @@ const server = http.createServer((request, response) => {
     if (request.url === "/") {
         response.setHeader("Access-Control-Allow-Methods", "POST, GET");
         response.setHeader('content-type', 'text/html');
-        fs.createReadStream('../index.html').pipe(response)
+        fs.createReadStream('index.html').pipe(response)
 
     }
     // GET DATA FROM AJAX
