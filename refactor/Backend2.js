@@ -5,8 +5,6 @@ port = 8080;
 host = "localhost";
 
 const server = http.createServer((request, response) => {
-    // response.setHeader("Access-Control-Allow-Origin", "*");
-    // response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
 
     if (request.url === "/") {
         response.setHeader("Access-Control-Allow-Methods", "POST, GET");
@@ -14,6 +12,7 @@ const server = http.createServer((request, response) => {
         fs.createReadStream('../index.html').pipe(response)
 
     }
+    // GET DATA FROM AJAX
     if (request.url === "/get-data" && request.method === "GET") {
         response.setHeader("content-type", "application/json");
         let message = fs.readFile("message.json", (error, file) => {
@@ -26,6 +25,7 @@ const server = http.createServer((request, response) => {
             };
         });
     }
+    // POST DATA FROM AJAX
     if (request.method === "POST" && request.url === "/") {
         response.setHeader("content-type", "application/json");
         let data = [];
@@ -39,10 +39,6 @@ const server = http.createServer((request, response) => {
                 response.write(data);
                 response.end();
             });
-    } else if (request.method === 'PUT') {
-        console.error('put method');
-        response.write('forbiden method put')
-        response.end();
     }
 });
 
