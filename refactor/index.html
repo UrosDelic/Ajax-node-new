@@ -9,17 +9,22 @@
 
   <body>
     <h1>Index.html page</h1>
+    <div>
+      <label for="inputEmail">email:</label>
+      <input type="text" name="email" id="email" />
+      <label for="inputPassword">password:</label>
+      <input type="text" name="password" id="password" />
+      <button id="post-request-button">POST REQUEST</button>
+    </div>
+
+    <div id="txtArea">
+      <label for="labeltxtarea">log data:</label>
+      <textarea name="logData" id="logData" cols="25" rows="5"></textarea>
+    </div>
     <button id="get-request-button">GET REQUEST</button>
-    <button id="post-request-button">POST REQUEST</button>
+
     <!-- <script src="./Frontend.js" type="application/javascript"></script> -->
     <script>
-      const obj = {
-        email: "test backend HEADERS test2",
-        password: "test backed HEADERS test2",
-      };
-
-      const JSONobj = JSON.stringify(obj);
-
       const sendHttpRequest = (method, url, data) => {
         const promise = new Promise((resolve, reject) => {
           const http = new XMLHttpRequest();
@@ -31,6 +36,9 @@
             if (http.response) {
               let jsonData = JSON.parse(http.response);
               console.log("test onload res", jsonData);
+              for (let element in jsonData) {
+                textArea.innerHTML += jsonData[element] + " ";
+              }
             }
             if (this.status >= 200 && this.status < 300) {
               resolve(http.response);
@@ -48,23 +56,35 @@
 
       const getHttpRequest = () => {
         sendHttpRequest("GET", "http://localhost:8080/get-data")
-          .then((responseData) => {
+          .then(responseData => {
             console.log(responseData);
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error);
           });
       };
 
       const postHttpRequest = () => {
-        sendHttpRequest("DELETE", "http://localhost:8080/post-data", JSONobj)
-          .then((responseData) => {
+        const obj = {
+          email: emailField.value,
+          password: passwordField.value,
+        };
+        const JSONobj = JSON.stringify(obj);
+
+        sendHttpRequest("POST", "http://localhost:8080/post-data", JSONobj)
+          .then(responseData => {
             console.log(responseData);
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error);
           });
       };
+
+      let passwordField = document.getElementById("password");
+
+      let emailField = document.getElementById("email");
+
+      const textArea = document.getElementById("logData");
 
       const postRequestButton = document.getElementById("post-request-button");
       postRequestButton.addEventListener("click", postHttpRequest);
@@ -72,5 +92,19 @@
       const getRequestButton = document.getElementById("get-request-button");
       getRequestButton.addEventListener("click", getHttpRequest);
     </script>
+    <style>
+      body {
+        font-family: Arial;
+      }
+
+      #logData {
+        margin-top: 10px;
+      }
+
+      #txtArea {
+        margin-top: 20px;
+        display: table-caption;
+      }
+    </style>
   </body>
 </html>
