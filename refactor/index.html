@@ -1,110 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ajax - Node.js</title>
-  </head>
 
-  <body>
-    <h1>Index.html page</h1>
-    <div>
-      <label for="inputEmail">email:</label>
-      <input type="text" name="email" id="email" />
-      <label for="inputPassword">password:</label>
-      <input type="text" name="password" id="password" />
-      <button id="post-request-button">POST REQUEST</button>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajax - Node.js</title>
+</head>
 
-    <div id="txtArea">
-      <label for="labeltxtarea">log data:</label>
-      <textarea name="logData" id="logData" cols="25" rows="5"></textarea>
-    </div>
-    <button id="get-request-button">GET REQUEST</button>
+<body>
+  <h1>Index.html page</h1>
+  <div>
+    <label for="inputEmail">email:</label>
+    <input type="text" name="email" id="email" />
+    <label for="inputPassword">password:</label>
+    <input type="text" name="password" id="password" />
+    <button id="post-request-button">POST REQUEST</button>
+  </div>
 
-    <!-- <script src="./Frontend.js" type="application/javascript"></script> -->
-    <script>
-      const sendHttpRequest = (method, url, data) => {
-        const promise = new Promise((resolve, reject) => {
-          const http = new XMLHttpRequest();
+  <div id="txtArea">
+    <label for="labeltxtarea">log data:</label>
+    <textarea name="logData" id="logData" cols="25" rows="5"></textarea>
+  </div>
+  <button id="get-request-button">GET REQUEST</button>
 
-          http.open(method, url, data);
-          http.setRequestHeader("Content-Type", "application/json");
+  <script src="Frontend.js" type="application/javascript"></script>
 
-          http.onload = () => {
-            if (http.response) {
-              let jsonData = JSON.parse(http.response);
-              console.log("test onload res", jsonData);
-              for (let element in jsonData) {
-                textArea.innerHTML += jsonData[element] + " ";
-              }
-            }
-            if (this.status >= 200 && this.status < 300) {
-              resolve(http.response);
-            } else {
-              reject(http.statusText);
-            }
-          };
-          http.onerror = () => {
-            reject("REJECT message inside onerror");
-          };
-          http.send(data);
-        });
-        return promise;
-      };
+  <style>
+    body {
+      font-family: Arial;
+    }
 
-      const getHttpRequest = () => {
-        sendHttpRequest("GET", "http://localhost:8080/get-data")
-          .then(responseData => {
-            console.log(responseData);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      };
+    #logData {
+      margin-top: 10px;
+    }
 
-      const postHttpRequest = () => {
-        const obj = {
-          email: emailField.value,
-          password: passwordField.value,
-        };
-        const JSONobj = JSON.stringify(obj);
+    #txtArea {
+      margin-top: 20px;
+      display: table-caption;
+    }
+  </style>
+</body>
 
-        sendHttpRequest("POST", "http://localhost:8080/post-data", JSONobj)
-          .then(responseData => {
-            console.log(responseData);
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      };
-
-      let passwordField = document.getElementById("password");
-
-      let emailField = document.getElementById("email");
-
-      const textArea = document.getElementById("logData");
-
-      const postRequestButton = document.getElementById("post-request-button");
-      postRequestButton.addEventListener("click", postHttpRequest);
-
-      const getRequestButton = document.getElementById("get-request-button");
-      getRequestButton.addEventListener("click", getHttpRequest);
-    </script>
-    <style>
-      body {
-        font-family: Arial;
-      }
-
-      #logData {
-        margin-top: 10px;
-      }
-
-      #txtArea {
-        margin-top: 20px;
-        display: table-caption;
-      }
-    </style>
-  </body>
 </html>
