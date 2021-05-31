@@ -1,63 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajax - Node.js</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ajax - Node.js</title>
-</head>
+  <body>
+    <h1>Ajax - Node.js</h1>
+    <div id="form">
+      <div>
+        <label for="inputEmail">email:</label>
+        <input type="text" name="email" id="email" />
+      </div>
+      <div id="input-password-cont">
+        <label for="inputPassword">password:</label>
+        <input type="text" name="password" id="password" />
+      </div>
 
-<body>
-  <h1>Index.html page</h1>
-  <div id="form">
-    <div>
-      <label for="inputEmail">email:</label>
-      <input type="text" name="email" id="email" />
+      <button id="post-request-button">POST REQUEST</button>
     </div>
-    <div id="input-password-cont">
-      <label for="inputPassword">password:</label>
-      <input type="text" name="password" id="password" />
+
+    <div id="txtArea">
+      <label for="labeltxtarea">log data:</label>
+      <textarea name="logData" id="logData" cols="25" rows="5"></textarea>
+      <button id="get-request-button">GET REQUEST</button>
     </div>
 
-    <button id="post-request-button">POST REQUEST</button>
-  </div>
+    <script src="Frontend.js" type="application/javascript"></script>
 
-  <div id="txtArea">
-    <label for="labeltxtarea">log data:</label>
-    <textarea name="logData" id="logData" cols="25" rows="5"></textarea>
-    <button id="get-request-button">GET REQUEST</button>
-  </div>
+    <style>
+      body {
+        font-family: Arial;
+      }
 
-  <script src="Frontend.js" type="application/javascript"></script>
+      #form {
+        display: table-caption;
+        margin: 10px;
+      }
+      #input-password-cont {
+        margin-top: 5px;
+      }
 
-  <style>
-    body {
-      font-family: Arial;
-    }
+      #post-request-button {
+        margin-top: 5px;
+      }
 
-    #form {
-      display: table-caption;
-      margin: 10px;
-    }
-    #input-password-cont{
-      margin-top: 10px;
-    }
+      #logData {
+      }
 
-    #post-request-button{
-      margin-top: 5px;
-    }
-
-    #logData {
-      
-    }
-
-    #txtArea {
-      margin-left: 10px;
-      margin-top: 20px;
-      display: table-caption;
-    }
-  </style>
-</body>
-
+      #txtArea {
+        margin-left: 10px;
+        margin-top: 20px;
+        display: table-caption;
+      }
+    
+    </style>
+  </body>
 </html>
