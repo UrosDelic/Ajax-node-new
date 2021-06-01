@@ -9,53 +9,64 @@
 
   <body>
     <h1>Ajax - Node.js</h1>
-    <div id="form">
-      <div>
-        <label for="inputEmail">email:</label>
-        <input type="text" name="email" id="email" />
+    <div class="app-box">
+      <div class="input-form-box">
+        <form action="/" method="post" id="form">
+        <div class="input-label-box">
+          <label for="inputEmail">email:</label>
+          <input type="text" name="email" id="email" />
+        </div>
+        <div class="input-password-box">
+          <label for="inputPassword">password:</label>
+          <input type="text" name="password" id="password" />
+        </div>
+        <div class="post-request-button-box">
+          <button class="post-request-button" id="post-request-button">POST REQUEST</button>
+        </div>
+      </form>
       </div>
-      <div id="input-password-cont">
-        <label for="inputPassword">password:</label>
-        <input type="text" name="password" id="password" />
+
+      <div class="txt-area-box">
+        <label for="labeltxtarea">log data:</label>
+        <textarea disabled class="text-area" name="logData" id="logData" cols="25" rows="5"></textarea>
+        <div class="get-request-button-box">
+          <button class="get-request-button" id="get-request-button">GET REQUEST</button>
+        </div>
       </div>
-
-      <button id="post-request-button">POST REQUEST</button>
     </div>
-
-    <div id="txtArea">
-      <label for="labeltxtarea">log data:</label>
-      <textarea name="logData" id="logData" cols="25" rows="5"></textarea>
-      <button id="get-request-button">GET REQUEST</button>
-    </div>
-
-    <script src="Frontend.js" type="application/javascript"></script>
+    <script defer src="Frontend.js" type="application/javascript"></script>
 
     <style>
       body {
         font-family: Arial;
+        background-color: lightsteelblue;
+        text-align: center;
       }
 
-      #form {
-        display: table-caption;
-        margin: 10px;
-      }
-      #input-password-cont {
-        margin-top: 5px;
+      .app-box {
+        /* width: 50%; */
+        font-size: small;
       }
 
-      #post-request-button {
-        margin-top: 5px;
-      }
-
-      #logData {
-      }
-
-      #txtArea {
-        margin-left: 10px;
-        margin-top: 20px;
-        display: table-caption;
-      }
+      .input-form-box {
+        /* text-align: center; */
     
+      }
+
+      .input-password-box {
+       
+      }
+
+      .text-area {
+        
+      }
+
+      .txt-area-box {
+        margin-top: 2rem;
+      }
+
+      .post-request-button {
+      }
     </style>
   </body>
 </html>
