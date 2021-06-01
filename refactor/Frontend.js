@@ -16,6 +16,7 @@ const getHttpRequest = () => {
 };
 
 const postHttpRequest = () => {
+  textArea.innerText = '';
   const obj = {
     email: emailField.value,
     password: passwordField.value,
