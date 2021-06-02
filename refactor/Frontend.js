@@ -52,34 +52,32 @@ form.addEventListener("submit", e => {
 ///////////////
 let httpClient = new HttpClient();
 
-class SendData extends HttpClient {
-  sendRequest(method, url, data) {
-    httpClient
-      .sendHttpRequest(method, url, data)
-      .then(responseData => {
-        this.showResponseData(responseData);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
 
-  showResponseData(responseData) {
-    let data = responseData;
-    if (data !== "") {
-      data = JSON.parse(responseData);
-      for (let element in data) {
-        if (data[element] !== "") {
-          textArea.innerHTML += data[element] + " ";
-        }
-      }
-    } else textArea.innerHTML = "no data to display";
-
-    console.log(responseData);
-  }
+const sendRequest = (method, url, data) => {
+  httpClient
+    .sendHttpRequest(method, url, data)
+    .then(responseData => {
+      showResponseData(responseData);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
 
-let ajaxApp = new SendData();
+const showResponseData = (responseData) => {
+  let data = responseData;
+  if (data !== "") {
+    data = JSON.parse(responseData);
+    for (let element in data) {
+      if (data[element] !== "") {
+        textArea.innerHTML += data[element] + " ";
+      }
+    }
+  } else textArea.innerHTML = "no data to display";
+
+  console.log(responseData);
+}
+
 
 const postRequestButton = document.getElementById("post-request-button");
 postRequestButton.disabled = true;
@@ -90,11 +88,11 @@ postRequestButton.addEventListener("click", () => {
     email: emailField.value,
     password: passwordField.value,
   };
-  ajaxApp.sendRequest("POST", "http://localhost:8080/post-data", obj);
+  sendRequest("POST", "http://localhost:8080/post-data", obj);
 });
 
 const getRequestButton = document.getElementById("get-request-button");
 
 getRequestButton.addEventListener("click", () => {
-  ajaxApp.sendRequest("GET", "http://localhost:8080/get-data");
+  sendRequest("GET", "http://localhost:8080/get-data");
 });
