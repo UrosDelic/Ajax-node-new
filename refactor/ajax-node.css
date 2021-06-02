@@ -53,6 +53,7 @@ input {
   /* padding: 10px; */
   color: lightgrey;
   width: 47%;
+  resize: vertical;
 }
 
 .txt-area-label-box {
