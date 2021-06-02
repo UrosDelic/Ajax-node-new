@@ -9,17 +9,19 @@ const server = http.createServer((request, response) => {
     response.setHeader("Access-Control-Allow-Methods", "POST, GET");
     response.setHeader("content-type", "text/html");
     fs.createReadStream("index.html").pipe(response);
-  } else if (request.url === "/Frontend.js") {
+  } //
+  else if (request.url === "/Frontend.js") {
     response.setHeader("content-type", "application/javascript");
     fs.createReadStream("Frontend.js").pipe(response);
-  } else if (request.url === "/ajax-node.css") {
+  } //
+  else if (request.url === "/ajax-node.css") {
     response.setHeader("content-type", "text/css");
     fs.createReadStream("ajax-node.css").pipe(response);
-  } else if (request.url === "/quantox-logo-bkg.png") {
+  } //
+  else if (request.url === "/quantox-logo-bkg.png") {
     response.setHeader("content-type", "image/png");
     fs.createReadStream("quantox-logo-bkg.png").pipe(response);
   }
-
   // GET DATA FROM AJAX
   else if (request.url === "/get-data" && request.method === "GET") {
     response.setHeader("content-type", "application/json");
@@ -53,7 +55,6 @@ const server = http.createServer((request, response) => {
     response.end();
   }
 });
-
 server.listen(port, host, error => {
   if (error) {
     console.log("Something went wrong", error);

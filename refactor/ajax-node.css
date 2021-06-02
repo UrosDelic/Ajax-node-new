@@ -58,7 +58,7 @@ input {
   color: lightgrey;
   width: 47%;
   resize: vertical;
-  min-height: 50px;
+  min-height: 132px;
   max-height: 327px;
 }
 

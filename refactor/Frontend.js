@@ -30,9 +30,7 @@ class HttpClient {
 }
 
 let passwordField = document.getElementById("password");
-
 let emailField = document.getElementById("email");
-
 const textArea = document.getElementById("logData");
 
 const enableButton = () => {
@@ -54,6 +52,35 @@ form.addEventListener("submit", e => {
 ///////////////
 let httpClient = new HttpClient();
 
+class SendData extends HttpClient {
+  sendRequest(method, url, data) {
+    httpClient
+      .sendHttpRequest(method, url, data)
+      .then(responseData => {
+        this.showResponseData(responseData);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  showResponseData(responseData) {
+    let data = responseData;
+    if (data !== "") {
+      data = JSON.parse(responseData);
+      for (let element in data) {
+        if (data[element] !== "") {
+          textArea.innerHTML += data[element] + " ";
+        }
+      }
+    } else textArea.innerHTML = "no data to display";
+
+    console.log(responseData);
+  }
+}
+
+let ajaxApp = new SendData();
+
 const postRequestButton = document.getElementById("post-request-button");
 postRequestButton.disabled = true;
 
@@ -63,112 +90,11 @@ postRequestButton.addEventListener("click", () => {
     email: emailField.value,
     password: passwordField.value,
   };
-  sendRequest("POST", "http://localhost:8080/post-data", obj);
+  ajaxApp.sendRequest("POST", "http://localhost:8080/post-data", obj);
 });
 
 const getRequestButton = document.getElementById("get-request-button");
 
 getRequestButton.addEventListener("click", () => {
-  sendRequest("GET", "http://localhost:8080/get-data");
+  ajaxApp.sendRequest("GET", "http://localhost:8080/get-data");
 });
-
-function sendRequest(method, url, data) {
-  httpClient
-    .sendHttpRequest(method, url, data)
-    .then(responseData => {
-      showResponseData(responseData);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-}
-
-function showResponseData(responseData) {
-  let data = responseData;
-  if (data !== "") {
-    data = JSON.parse(responseData);
-    for (let element in data) {
-      if (data[element] !== "") {
-        textArea.innerHTML += data[element] + " ";
-      }
-    }
-  } else textArea.innerHTML = "no data to display";
-
-  console.log(responseData);
-}
-
-// staro
-// const sendHttpRequest = (method, url, data) => {
-//   const promise = new Promise((resolve, reject) => {
-//     createXMLHttpRequest(method, url, data, resolve, reject);
-//   });
-//   return promise;
-// };
-
-// const getHttpRequest = () => {
-//   sendHttpRequest("GET", "http://localhost:8080/get-data")
-//     .then(responseData => {
-//       console.log(responseData);
-//     })
-//     .catch(error => {
-//       console.log(error);
-//     });
-// };
-
-// const postHttpRequest = () => {
-//   textArea.innerText = '';
-//   const obj = {
-//     email: emailField.value,
-//     password: passwordField.value,
-//   };
-//   const JSONobj = JSON.stringify(obj);
-
-//   sendHttpRequest("POST", "http://localhost:8080/post-data", JSONobj)
-//     .then(responseData => {
-//       console.log(responseData);
-//     })
-//     .catch(error => {
-//       console.log(error);
-//     });
-// };
-
-// function createXMLHttpRequest(method, url, data, resolve, reject) {
-//   const http = new XMLHttpRequest();
-
-//   http.open(method, url, data);
-//   http.setRequestHeader("Content-Type", "application/json");
-
-//   http.onload = () => {
-//     processRequestData(http);
-//     if (this.status >= 200 && this.status < 300) {
-//       resolve(http.response);
-//     } else {
-//       reject(http.statusText);
-//     }
-//   };
-//   http.onerror = () => {
-//     reject("REJECT message inside onerror");
-//   };
-//   http.send(data);
-// }
-
-// function processRequestData(http) {
-//   if (http.response) {
-//     let jsonData = JSON.parse(http.response);
-//     for (let element in jsonData) {
-//       if (jsonData[element] !== "") {
-//         textArea.innerHTML += jsonData[element] + " ";
-//       } else textArea.innerHTML = "no data to display";
-//     }
-//   }
-//   else {
-//     textArea.innerHTML = "no data to display";
-//   }
-// }
-// const postRequestButton = document.getElementById("post-request-button");
-// postRequestButton.addEventListener("click", postHttpRequest);
-
-// const getRequestButton = document.getElementById("get-request-button");
-// getRequestButton.addEventListener("click", getHttpRequest);
-
-// postRequestButton.disabled = true;
