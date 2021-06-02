@@ -10,7 +10,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  max-width: 550px;
+  max-width: 61vh;
   padding: 30px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
@@ -58,8 +58,8 @@ input {
   color: lightgrey;
   width: 47%;
   resize: vertical;
-  min-height: 132px;
-  max-height: 327px;
+  min-height: 5em;
+  max-height: 18em;
 }
 
 .txt-area-label-box {

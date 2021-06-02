@@ -10,9 +10,9 @@ const server = http.createServer((request, response) => {
     response.setHeader("content-type", "text/html");
     fs.createReadStream("index.html").pipe(response);
   } //
-  else if (request.url === "/Frontend.js") {
-    response.setHeader("content-type", "application/javascript");
-    fs.createReadStream("Frontend.js").pipe(response);
+  else if (request.url === "/Frontend.mjs") {
+    response.setHeader("content-type", "text/javascript");
+    fs.createReadStream("Frontend.mjs").pipe(response);
   } //
   else if (request.url === "/ajax-node.css") {
     response.setHeader("content-type", "text/css");
@@ -45,7 +45,7 @@ const server = http.createServer((request, response) => {
       })
       .on("end", () => {
         data = Buffer.concat(data).toString();
-        fs.writeFile("message.json", data, () => {});
+        fs.writeFile("message.json", data, () => { });
         response.write(data);
         response.end();
       });
