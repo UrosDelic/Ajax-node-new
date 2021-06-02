@@ -5,9 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ajax - Node.js</title>
+    <link rel="stylesheet" href="ajax-node.css">
   </head>
-
+  
   <body>
+      
     <h1>Ajax - Node.js</h1>
     <div class="app-box">
       <div class="input-form-box">
@@ -31,9 +33,7 @@
           </div>
 
           <div class="post-request-button-box">
-            <button class="post-request-button" id="post-request-button">
-              POST DATA
-            </button>
+            <button class="post-request-button" id="post-request-button">POST DATA</button>
           </div>
         </form>
       </div>
@@ -43,86 +43,14 @@
           <label for="labeltxtarea">log data:</label>
         </div>
         <div class="text-area-box"></div>
-        <textarea
-          disabled
-          class="text-area"
-          name="logData"
-          id="logData"
-        ></textarea>
+        <textarea disabled class="text-area" name="logData" id="logData"></textarea>
         <div class="get-request-button-box">
-          <button class="get-request-button" id="get-request-button">
-            GET DATA
-          </button>
+          <button class="get-request-button" id="get-request-button">GET DATA</button>
         </div>
       </div>
     </div>
     <script defer src="Frontend.js" type="application/javascript"></script>
 
-    <style>
-      body {
-        color: #96ca3a;
-        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-        background: url("https://quantox.com/assets/img/quantox-logo-bkg.png")
-          no-repeat top center;
-        height: 80vh;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        max-width: 550px;
-        padding: 30px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      }
-
-      button {
-        margin-top: 1em;
-        background-color: #96ca3a;
-        border-radius: 20px;
-        border: 0;
-        font-weight: bold;
-      }
-
-      input {
-        width: 47%;
-        color: white;
-        background-color: black;
-        background: transparent;
-        border: 0px;
-        border-bottom: 2px solid lightgrey;
-      }
-      .label-box {
-        margin-top: 2em;
-        margin-bottom: 1em;
-      }
-
-      .app-box {
-        margin-top: 5em;
-
-        font-size: medium;
-      }
-
-      .input-form-box {
-        /* text-align: center; */
-      }
-
-      .text-area {
-        font-weight: bolder;
-        background: transparent;
-        border: 0px;
-        border-bottom: 2px solid lightgrey;
-        /* padding: 10px; */
-        color: lightgrey;
-        width: 47%;
-      }
-
-      .txt-area-label-box {
-        margin-top: 3em;
-      }
-
-      .post-request-button {
-      }
-    </style>
+    
   </body>
 </html>

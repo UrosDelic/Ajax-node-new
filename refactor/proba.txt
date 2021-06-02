@@ -1,5 +1,6 @@
 class HttpClient {
-  constructor() {}
+  constructor() {
+  }
 
   sendHttpRequest(method, url, data) {
     data = JSON.stringify(data);
@@ -8,7 +9,7 @@ class HttpClient {
       this.createXMLHttpRequest(method, url, data, resolve, reject);
     });
     return promise;
-  }
+  };
 
   createXMLHttpRequest(method, url, data, resolve, reject) {
     const http = new XMLHttpRequest();
@@ -115,7 +116,8 @@ const textArea = document.getElementById("logData");
 const enableButton = () => {
   if (passwordField.value !== "" && emailField.value !== "") {
     postRequestButton.disabled = false;
-  } else {
+  }
+  else {
     postRequestButton.disabled = true;
   }
 };
@@ -134,14 +136,13 @@ const postRequestButton = document.getElementById("post-request-button");
 postRequestButton.disabled = true;
 
 postRequestButton.addEventListener("click", () => {
-  textArea.innerText = "";
+
   const obj = {
     email: emailField.value,
     password: passwordField.value,
   };
 
-  httpClient
-    .sendHttpRequest("POST", "http://localhost:8080/post-data", obj)
+  httpClient.sendHttpRequest("POST", "http://localhost:8080/post-data", obj)
     .then(responseData => {
       showResponseData(responseData);
       console.log(responseData);
@@ -153,8 +154,7 @@ postRequestButton.addEventListener("click", () => {
 
 const getRequestButton = document.getElementById("get-request-button");
 getRequestButton.addEventListener("click", () => {
-  httpClient
-    .sendHttpRequest("GET", "http://localhost:8080/get-data")
+  httpClient.sendHttpRequest("GET", "http://localhost:8080/get-data")
     .then(responseData => {
       showResponseData(responseData);
     })
@@ -163,16 +163,84 @@ getRequestButton.addEventListener("click", () => {
     });
 });
 
-function showResponseData(responseData) {
-  let data = responseData;
-  if (data !== "") {
-    data = JSON.parse(responseData);
-    for (let element in data) {
-      if (data[element] !== "") {
-        textArea.innerHTML += data[element] + " ";
-      }
-    }
-  } else textArea.innerHTML = "no data to display";
 
+function showResponseData(responseData) {
+  let jsonData = JSON.parse(responseData);
+  if (jsonData) {
+    for (let element in jsonData) {
+      if (jsonData[element] !== "") {
+        textArea.innerHTML += jsonData[element] + " ";
+      } else
+        textArea.innerHTML = "no data to display";
+    }
+  }
+  else {
+    textArea.innerHTML = "no data to display";
+  }
   console.log(responseData);
 }
+
+body {
+        color: #96ca3a;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+        background: url("https://quantox.com/assets/img/quantox-logo-bkg.png")
+          no-repeat top center;
+        height: 80vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 550px;
+        padding: 30px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      }
+
+      button {
+        margin-top: 1em;
+        background-color: #96ca3a;
+        border-radius: 20px;
+        border: 0;
+        font-weight: bold;
+      }
+
+      input {
+        width: 47%;
+        color: white;
+        background-color: black;
+        background: transparent;
+        border: 0px;
+        border-bottom: 2px solid lightgrey;
+      }
+      .label-box {
+        margin-top: 2em;
+        margin-bottom: 1em;
+      }
+
+      .app-box {
+        margin-top: 5em;
+
+        font-size: medium;
+      }
+
+      .input-form-box {
+        /* text-align: center; */
+      }
+
+      .text-area {
+        font-weight: bolder;
+        background: transparent;
+        border: 0px;
+        border-bottom: 2px solid lightgrey;
+        /* padding: 10px; */
+        color: lightgrey;
+        width: 47%;
+      }
+
+      .txt-area-label-box {
+        margin-top: 3em;
+      }
+
+      .post-request-button {
+      }

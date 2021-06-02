@@ -12,6 +12,9 @@ const server = http.createServer((request, response) => {
   } else if (request.url === "/Frontend.js") {
     response.setHeader("content-type", "application/javascript");
     fs.createReadStream("Frontend.js").pipe(response);
+  } else if (request.url === "/ajax-node.css") {
+    response.setHeader("content-type", "text/css");
+    fs.createReadStream("ajax-node.css").pipe(response);
   }
 
   // GET DATA FROM AJAX
