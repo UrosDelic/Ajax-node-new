@@ -1,6 +1,4 @@
 class HttpClient {
-  constructor() {}
-
   sendHttpRequest(method, url, data) {
     data = JSON.stringify(data);
 
@@ -23,12 +21,82 @@ class HttpClient {
         reject(http.statusText);
       }
     };
+
     http.onerror = () => {
       reject("REJECT message inside onerror");
     };
     http.send(data);
   }
 }
+
+let passwordField = document.getElementById("password");
+
+let emailField = document.getElementById("email");
+
+const textArea = document.getElementById("logData");
+
+const enableButton = () => {
+  if (passwordField.value !== "" && emailField.value !== "") {
+    postRequestButton.disabled = false;
+  } else {
+    postRequestButton.disabled = true;
+  }
+};
+
+passwordField.addEventListener("change", enableButton);
+emailField.addEventListener("change", enableButton);
+
+const form = document.getElementById("form");
+form.addEventListener("submit", e => {
+  e.preventDefault();
+});
+
+///////////////
+let httpClient = new HttpClient();
+
+const postRequestButton = document.getElementById("post-request-button");
+postRequestButton.disabled = true;
+
+postRequestButton.addEventListener("click", () => {
+  textArea.innerText = "";
+  const obj = {
+    email: emailField.value,
+    password: passwordField.value,
+  };
+  sendRequest("POST", "http://localhost:8080/post-data", obj);
+});
+
+const getRequestButton = document.getElementById("get-request-button");
+
+getRequestButton.addEventListener("click", () => {
+  sendRequest("GET", "http://localhost:8080/get-data");
+});
+
+function sendRequest(method, url, data) {
+  httpClient
+    .sendHttpRequest(method, url, data)
+    .then(responseData => {
+      showResponseData(responseData);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
+
+function showResponseData(responseData) {
+  let data = responseData;
+  if (data !== "") {
+    data = JSON.parse(responseData);
+    for (let element in data) {
+      if (data[element] !== "") {
+        textArea.innerHTML += data[element] + " ";
+      }
+    }
+  } else textArea.innerHTML = "no data to display";
+
+  console.log(responseData);
+}
+
 // staro
 // const sendHttpRequest = (method, url, data) => {
 //   const promise = new Promise((resolve, reject) => {
@@ -97,13 +165,6 @@ class HttpClient {
 //     textArea.innerHTML = "no data to display";
 //   }
 // }
-
-let passwordField = document.getElementById("password");
-
-let emailField = document.getElementById("email");
-
-const textArea = document.getElementById("logData");
-
 // const postRequestButton = document.getElementById("post-request-button");
 // postRequestButton.addEventListener("click", postHttpRequest);
 
@@ -111,68 +172,3 @@ const textArea = document.getElementById("logData");
 // getRequestButton.addEventListener("click", getHttpRequest);
 
 // postRequestButton.disabled = true;
-
-const enableButton = () => {
-  if (passwordField.value !== "" && emailField.value !== "") {
-    postRequestButton.disabled = false;
-  } else {
-    postRequestButton.disabled = true;
-  }
-};
-
-passwordField.addEventListener("change", enableButton);
-emailField.addEventListener("change", enableButton);
-
-const form = document.getElementById("form");
-form.addEventListener("submit", e => {
-  e.preventDefault();
-});
-
-let httpClient = new HttpClient();
-
-const postRequestButton = document.getElementById("post-request-button");
-postRequestButton.disabled = true;
-
-postRequestButton.addEventListener("click", () => {
-  textArea.innerText = "";
-  const obj = {
-    email: emailField.value,
-    password: passwordField.value,
-  };
-
-  httpClient
-    .sendHttpRequest("POST", "http://localhost:8080/post-data", obj)
-    .then(responseData => {
-      showResponseData(responseData);
-      console.log(responseData);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-});
-
-const getRequestButton = document.getElementById("get-request-button");
-getRequestButton.addEventListener("click", () => {
-  httpClient
-    .sendHttpRequest("GET", "http://localhost:8080/get-data")
-    .then(responseData => {
-      showResponseData(responseData);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-});
-
-function showResponseData(responseData) {
-  let data = responseData;
-  if (data !== "") {
-    data = JSON.parse(responseData);
-    for (let element in data) {
-      if (data[element] !== "") {
-        textArea.innerHTML += data[element] + " ";
-      }
-    }
-  } else textArea.innerHTML = "no data to display";
-
-  console.log(responseData);
-}

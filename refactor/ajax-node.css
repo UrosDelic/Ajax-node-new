@@ -1,7 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
+
 body {
   color: #96ca3a;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  background: url("https://quantox.com/assets/img/quantox-logo-bkg.png") no-repeat top center;
+  font-family: "Montserrat", sans-serif;
+  background: url("quantox-logo-bkg.png") no-repeat top center;
   height: 80vh;
   position: absolute;
   top: 50%;
@@ -11,20 +13,22 @@ body {
   max-width: 550px;
   padding: 30px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 button {
   margin-top: 1em;
   background-color: #96ca3a;
-  border-radius: 20px;
-  border: 0;
+  border-radius: 10px;
   font-weight: bold;
+  padding: 3px;
+  font-family: "Montserrat", sans-serif;
+  border-color: #96ca3a;
 }
 
 input {
   width: 47%;
-  color: white;
+  color: lightgrey;
   background-color: black;
   background: transparent;
   border: 0px;
@@ -54,6 +58,8 @@ input {
   color: lightgrey;
   width: 47%;
   resize: vertical;
+  min-height: 50px;
+  max-height: 327px;
 }
 
 .txt-area-label-box {

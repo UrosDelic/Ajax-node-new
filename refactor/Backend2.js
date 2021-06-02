@@ -4,7 +4,7 @@ port = 8080;
 host = "localhost";
 
 const server = http.createServer((request, response) => {
-  // jedna putanja za jedan resurs
+  //
   if (request.url === "/") {
     response.setHeader("Access-Control-Allow-Methods", "POST, GET");
     response.setHeader("content-type", "text/html");
@@ -15,6 +15,9 @@ const server = http.createServer((request, response) => {
   } else if (request.url === "/ajax-node.css") {
     response.setHeader("content-type", "text/css");
     fs.createReadStream("ajax-node.css").pipe(response);
+  } else if (request.url === "/quantox-logo-bkg.png") {
+    response.setHeader("content-type", "image/png");
+    fs.createReadStream("quantox-logo-bkg.png").pipe(response);
   }
 
   // GET DATA FROM AJAX
