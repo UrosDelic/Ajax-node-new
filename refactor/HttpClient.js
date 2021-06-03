@@ -1,13 +1,4 @@
 export class HttpClient {
-  sendHttpRequest(method, url, data) {
-    data = JSON.stringify(data);
-
-    const promise = new Promise((resolve, reject) => {
-      this.createXMLHttpRequest(method, url, data, resolve, reject);
-    });
-    return promise;
-  }
-
   createXMLHttpRequest(method, url, data, resolve, reject) {
     const http = new XMLHttpRequest();
 
@@ -26,5 +17,12 @@ export class HttpClient {
       reject("REJECT message inside onerror");
     };
     http.send(data);
+  }
+  sendHttpRequest(method, url, data) {
+    data = JSON.stringify(data);
+    const promise = new Promise((resolve, reject) => {
+      this.createXMLHttpRequest(method, url, data, resolve, reject);
+    });
+    return promise;
   }
 }

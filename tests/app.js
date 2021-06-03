@@ -1,12 +1,7 @@
-class App {
-  constructor(a) {
-    this.a = a;
-  }
-  print() {
-    console.log(this.a);
-  }
-}
-let test1 = new App(2);
-//console.log(test1);
+const json = '{"result":true, "count":42}';
+const obj = JSON.parse("[" + json + "]");
 
-test1.print();
+// expected output: 42
+obj.forEach(element => {
+  console.log(element.count);
+});

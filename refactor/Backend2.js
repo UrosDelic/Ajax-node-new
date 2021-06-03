@@ -11,7 +11,7 @@ const server = createServer((request, response) => {
     createReadStream("index.html").pipe(response);
   } //
   else if (request.url === "/Frontend.js") {
-    response.setHeader("content-type", "text/javascript");
+    response.setHeader("content-type", "application/javascript");
     createReadStream("Frontend.js").pipe(response);
   } //
   else if (request.url === "/HttpClient.js") {
@@ -48,7 +48,7 @@ const server = createServer((request, response) => {
         data.push(chunk);
       })
       .on("end", () => {
-        data = Buffer.concat(data).toString();
+        data = Buffer.concat(data);
         writeFile("message.json", data, () => {});
         response.write(data);
         response.end();

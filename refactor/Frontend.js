@@ -52,16 +52,15 @@ const sendRequest = (method, url, data) => {
     });
 };
 
-const showResponseData = responseData => {
-  let data = responseData;
-  if (data !== "") {
-    data = JSON.parse(responseData);
-    for (let element in data) {
-      if (data[element] !== "") {
-        textArea.innerHTML += data[element] + " ";
+const showResponseData = displayData => {
+  if (displayData !== "") {
+    displayData = JSON.parse(displayData);
+
+    for (let element in displayData) {
+      if (displayData[element] !== "") {
+        textArea.innerHTML =
+          "email: " + displayData.email + "\n" + "password: " + displayData.password;
       }
     }
   } else textArea.innerHTML = "no data to display";
-
-  console.log(responseData);
 };
