@@ -1,31 +1,35 @@
-const http = require("http");
-const fs = require("fs");
-port = 8080;
-host = "localhost";
+import { createServer } from "http";
+import { createReadStream, readFile, writeFile } from "fs";
+let port = 8080;
+let host = "localhost";
 
-const server = http.createServer((request, response) => {
+const server = createServer((request, response) => {
   //
   if (request.url === "/") {
     response.setHeader("Access-Control-Allow-Methods", "POST, GET");
     response.setHeader("content-type", "text/html");
-    fs.createReadStream("index.html").pipe(response);
+    createReadStream("index.html").pipe(response);
   } //
-  else if (request.url === "/Frontend.mjs") {
+  else if (request.url === "/Frontend.js") {
     response.setHeader("content-type", "text/javascript");
-    fs.createReadStream("Frontend.mjs").pipe(response);
+    createReadStream("Frontend.js").pipe(response);
+  } //
+  else if (request.url === "/HttpClient.js") {
+    response.setHeader("content-type", "text/javascript");
+    createReadStream("HttpClient.js").pipe(response);
   } //
   else if (request.url === "/ajax-node.css") {
     response.setHeader("content-type", "text/css");
-    fs.createReadStream("ajax-node.css").pipe(response);
+    createReadStream("ajax-node.css").pipe(response);
   } //
   else if (request.url === "/quantox-logo-bkg.png") {
     response.setHeader("content-type", "image/png");
-    fs.createReadStream("quantox-logo-bkg.png").pipe(response);
+    createReadStream("quantox-logo-bkg.png").pipe(response);
   }
   // GET DATA FROM AJAX
   else if (request.url === "/get-data" && request.method === "GET") {
     response.setHeader("content-type", "application/json");
-    let message = fs.readFile("message.json", (error, file) => {
+    let message = readFile("message.json", (error, file) => {
       if (error) {
         throw error;
       } else {
@@ -45,7 +49,7 @@ const server = http.createServer((request, response) => {
       })
       .on("end", () => {
         data = Buffer.concat(data).toString();
-        fs.writeFile("message.json", data, () => { });
+        writeFile("message.json", data, () => {});
         response.write(data);
         response.end();
       });
