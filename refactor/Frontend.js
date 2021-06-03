@@ -58,8 +58,8 @@ const showResponseData = displayData => {
 
     for (let element in displayData) {
       if (displayData[element] !== "") {
-        textArea.innerHTML =
-          "email: " + displayData.email + "\n" + "password: " + displayData.password;
+        textArea.innerHTML = `email: ${displayData.email}
+                              password: ${displayData.password}`;
       }
     }
   } else textArea.innerHTML = "no data to display";
