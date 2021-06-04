@@ -42,7 +42,9 @@ const server = createServer((request, response) => {
   // POST DATA FROM AJAX
   else if (request.method === "POST" && request.url === "/post-data") {
     response.setHeader("content-type", "application/json");
+
     let data = [];
+
     request
       .on("data", chunk => {
         data.push(chunk);

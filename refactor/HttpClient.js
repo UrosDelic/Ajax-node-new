@@ -1,10 +1,12 @@
-export class HttpClient {
+export default class HttpClient {
   createXMLHttpRequest(method, url, data, resolve, reject) {
     const http = new XMLHttpRequest();
 
     http.open(method, url, data);
-    http.setRequestHeader("Content-Type", "application/json");
 
+    // napravi bolji API sa POST I GET metodom
+
+    http.setRequestHeader("Content-Type", "application/json");
     http.onload = () => {
       if (http.status >= 200 && http.status < 300) {
         resolve(http.response);
@@ -18,6 +20,7 @@ export class HttpClient {
     };
     http.send(data);
   }
+
   sendHttpRequest(method, url, data) {
     data = JSON.stringify(data);
     const promise = new Promise((resolve, reject) => {
